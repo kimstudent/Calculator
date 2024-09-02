@@ -4,9 +4,9 @@ class Program
 {
     static void Main()
     {
-        bool Continue = true;
+        bool continueCalculator = true;
 
-        while (Continue)
+        while (continueCalculator)
         {
             Console.WriteLine("Первое число");
             double num1 = Convert.ToDouble(Console.ReadLine());
@@ -16,7 +16,7 @@ class Program
             Console.WriteLine("Выберите (+, -, *, /):");
             string operation = Console.ReadLine();
 
-            bool a = true;
+            bool checkingOperation = true;
             double result = 0;
 
             switch (operation)
@@ -38,15 +38,15 @@ class Program
                     else
                     {
                         Console.WriteLine("НОЛЬ");
-                        a = false;
+                        checkingOperation = false;
                     }
                     break;
                 default:
                     Console.WriteLine("ОШИБКА");
-                    a = false;
+                    checkingOperation = false;
                     break;
             }
-            if (a)
+            if (checkingOperation)
             {
                 Console.WriteLine($"Результат: {result}");
             }
@@ -54,7 +54,7 @@ class Program
             string Response = Console.ReadLine();
             if (Response != "да")
             {
-                Continue = false;
+                continueCalculator = false;
             }
         }
         Console.WriteLine("Конец");
