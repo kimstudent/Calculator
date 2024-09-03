@@ -42,7 +42,7 @@ class Program
                     }
                     break;
                 default:
-                    Console.WriteLine("ОШИБКА");
+                    Console.WriteLine($"Введенное значение '{operation}' не корректно.");
                     checkingOperation = false;
                     break;
             }
