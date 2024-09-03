@@ -8,10 +8,10 @@ class Program
 
         while (continueCalculator)
         {
-            Console.WriteLine("Первое число");
-            double num1 = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Второе число");
-            double num2 = Convert.ToDouble(Console.ReadLine());
+
+            double num1 = Number("введите первое число");
+            
+            double num2 = Number("введите второе число");
 
             Console.WriteLine("Выберите (+, -, *, /):");
             string operation = Console.ReadLine();
@@ -22,18 +22,18 @@ class Program
             switch (operation)
             {
                 case "+":
-                    result = num1 + num2;
+                    result = Add(num1, num2);
                     break;
                 case "-":
-                    result = num1 - num2;
+                    result = Subtract(num1, num2);
                     break;
                 case "*":
-                    result = num1 * num2;
+                    result = Multiply(num1, num2);
                     break;
                 case "/":
                     if (num2 != 0)
                     {
-                        result = num1 / num2;
+                        result = Divide(num1, num2);
                     }
                     else
                     {
@@ -59,4 +59,29 @@ class Program
         }
         Console.WriteLine("Конец");
     }
+    static double Add(double num1, double num2) { return num1 + num2; }
+    static double Subtract(double num1, double num2) { return num1 - num2; }
+    static double Multiply(double num1, double num2) { return num1 * num2; }
+    static double Divide(double num1, double num2) { return num1 / num2; }
+
+   
+    static double Number(string hint)
+    {
+        double number;
+        while (true)
+        {
+            Console.WriteLine(hint); 
+
+            if (double.TryParse(Console.ReadLine(), out number)) 
+            {
+                return number; 
+            }
+            else
+            {
+                Console.WriteLine("не корректное число"); 
+            }
+        }
+    }
+
+
 }
