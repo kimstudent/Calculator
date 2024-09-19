@@ -1,39 +1,47 @@
 ﻿using System;
 public interface IOperation 
 {
-    double Execute(double operand1, double operand2);
+    double Execute(double num1, double num2);
 }
 
 public class Addition : IOperation
 {
-    public double Execute(double operand1, double operand2)
+    public double Execute(double num1, double num2)
     {
-        return operand1 + operand2; 
+        return num1 + num2; 
     }
 }
 public class Subtraction : IOperation
 {
-    public double Execute(double operand1, double operand2)
+    public double Execute(double num1, double num2)
     {
-        return operand1 - operand2;
+        return num1 - num2;
     }
 }
 public class Multiplication : IOperation
 {
-    public double Execute(double operand1, double operand2)
+    public double Execute(double num1, double num2)
     {
-        return operand1 * operand2;
+        return num1 * num2;
     }
 }
 public class Division : IOperation
 {
-    public double Execute(double operand1, double operand2)
+    public double Execute(double num1, double num2)
     {
-        if (operand2 == 0 )
+        if (num2 == 0 )
         {
-
+            Console.WriteLine("На ноль делить нельзя");
         }
-        return operand1 / operand2;
+        return num1 / num2;
+    }
+}
+
+public class Calculator
+{
+    public double Calculate(IOperation operation, double num1, double num2)
+    {
+        return operation.Execute(num1, num2);
     }
 }
 
@@ -41,50 +49,63 @@ class Program
 {
     static void Main()
     {
+        
+        Calculator calculator = new Calculator();
         bool continueCalculator = true;
 
         while (continueCalculator)
         {
-            Console.WriteLine("Первое число");
-            double num1 = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Второе число");
-            double num2 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Выберите операцию: +, -, *, /");
+            string pick = Console.ReadLine();
 
-            Console.WriteLine("Выберите (+, -, *, /):");
-            string operation = Console.ReadLine();
+            if(pick == "5")
+            {
+                continueCalculator = false;
+                break;
+            }
+
+            Console.WriteLine("Введите первое число:");
+            double num1;
+            if(!double.TryParse(Console.ReadLine(), out num1))
+            {
+                Console.WriteLine("Некорректный ввод");
+                continue;
+            }
+
+            Console.WriteLine("Введите первое число:");
+            double num2;
+            if (!double.TryParse(Console.ReadLine(), out num2))
+            {
+                Console.WriteLine("Некорректный ввод");
+                continue;
+            }
 
             bool checkingOperation = true;
-            double result = 0;
+            IOperation operation = null;
 
-            switch (operation)
+
+            switch (pick)
             {
                 case "+":
-                    result = num1 + num2;
+                    operation = new Addition();
                     break;
                 case "-":
-                    result = num1 - num2;
+                    operation = new Subtraction();
                     break;
                 case "*":
-                    result = num1 * num2;
+                    operation = new Multiplication();
                     break;
                 case "/":
-                    if (num2 != 0)
-                    {
-                        result = num1 / num2;
-                    }
-                    else
-                    {
-                        Console.WriteLine("НОЛЬ");
-                        checkingOperation = false;
-                    }
+                    operation = new Division();
                     break;
                 default:
-                    Console.WriteLine("ОШИБКА");
+                    Console.WriteLine($"Введенное значение '{operation}' не корректно.");
                     checkingOperation = false;
                     break;
             }
             if (checkingOperation)
             {
+                double result = calculator.Calculate(operation, num1, num2);
                 Console.WriteLine($"Результат: {result}");
             }
             Console.WriteLine("Продолжить?(да/нет)");
