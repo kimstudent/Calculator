@@ -32,6 +32,7 @@ public class Division : IOperation
         if (num2 == 0 )
         {
             Console.WriteLine("На ноль делить нельзя");
+            return 0;
         }
         return num1 / num2;
     }
@@ -55,10 +56,10 @@ class Program
 
         while (continueCalculator)
         {
-            Console.WriteLine("Выберите операцию: +, -, *, /");
+            Console.WriteLine("Выберите операцию: +, -, *, / \nЗакончить работу: exit");
             string pick = Console.ReadLine();
 
-            if(pick == "5")
+            if(pick == "exit")
             {
                 continueCalculator = false;
                 break;
@@ -72,7 +73,7 @@ class Program
                 continue;
             }
 
-            Console.WriteLine("Введите первое число:");
+            Console.WriteLine("Введите второе число:");
             double num2;
             if (!double.TryParse(Console.ReadLine(), out num2))
             {
